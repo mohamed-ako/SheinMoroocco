@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/mohamed-ako/SheinMoroocco/issues"
   },
-  "homepage": "https://github.com/mohamed-ako/SheinMoroocco/tree/main#readme"
+  "homepage": "https://github.com/mohamed-ako/SheinMoroocco/tree/main#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.0"
+  }
 }
