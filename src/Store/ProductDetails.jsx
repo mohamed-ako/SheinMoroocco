@@ -27,10 +27,13 @@ const ProductDetails = () => {
       {product ? (
         <div>
           <div className="media">
-            <video controls>
-              <source src={`${product.video}`} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            {product.video !== "0" ||
+              (!product.video && (
+                <video controls>
+                  <source src={`${product.video}`} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ))}
             <img
               src={`${product.theImage}`}
               alt="Main Product"

@@ -83,7 +83,7 @@ const productsSlice = createSlice({
     },
     editProducts: (state, action) => {
       const index = state.products.findIndex(
-        (product) => product.id === action.payload.id
+        (product) => product._id === action.payload._id
       );
       if (index !== -1) {
         state.products[index] = { ...state.products[index], ...action.payload };
@@ -91,7 +91,7 @@ const productsSlice = createSlice({
     },
     deleteProducts: (state, action) => {
       state.products = state.products.filter(
-        (product) => product.id !== action.payload
+        (product) => product._id !== action.payload
       );
     },
   },
@@ -125,7 +125,7 @@ const productsSlice = createSlice({
       .addCase(editProduct.fulfilled, (state, action) => {
         state.status = "succeeded";
         const index = state.products.findIndex(
-          (product) => product.id === action.payload.id
+          (product) => product._id === action.payload._id
         );
         if (index !== -1) {
           state.products[index] = {
@@ -144,7 +144,7 @@ const productsSlice = createSlice({
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.products = state.products.filter(
-          (product) => product.id !== action.payload
+          (product) => product._id !== action.payload
         );
       })
       .addCase(deleteProduct.rejected, (state, action) => {

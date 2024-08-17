@@ -40,7 +40,7 @@ const MyList = () => {
   };
 
   const buyNow = () => {
-    const whatsappURL = `https://api.whatsapp.com/send?phone=+212656252574&text=Buy%20List:%0D%0A${encodeURIComponent(
+    const whatsappURL = `https://api.whatsapp.com/send?phone=+212709817988&text=Buy%20List:%0D%0A${encodeURIComponent(
       JSON.stringify({
         products: products.map((product) => ({
           id: product._id,

@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema({
   name: String,
   description: String,
-  category: String,
+  category: String, 
   theImage: String,
   images: [String],
   video: String,
@@ -12,6 +12,8 @@ const productSchema = new mongoose.Schema({
   price: Number,
   quantity: Number,
   date: { type: Date, default: Date.now },
+  buyLink: String,
+  about: String,
 });
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model("MakoProduct", productSchema);

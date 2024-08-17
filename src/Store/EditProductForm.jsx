@@ -22,6 +22,8 @@ const EditProductForm = () => {
     publisher: "",
     price: "",
     quantity: "",
+    buyLink: "",
+    about: "",
   });
 
   useEffect(() => {
@@ -38,6 +40,8 @@ const EditProductForm = () => {
         publisher: product.publisher,
         price: product.price,
         quantity: product.quantity,
+        buyLink: product.buyLink,
+        about: product.about,
       });
     }
   }, [dispatch, product]);
@@ -95,6 +99,22 @@ const EditProductForm = () => {
           type="text"
           name="name"
           value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        <label>Buy Link:</label>
+        <input
+          type="text"
+          name="buyLink"
+          value={formData.buyLink}
+          onChange={handleChange}
+          required
+        />
+        <label>About:</label>
+        <input
+          type="text"
+          name="about"
+          value={formData.about}
           onChange={handleChange}
           required
         />

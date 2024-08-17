@@ -48,7 +48,7 @@ app.delete("/products/:id", async (req, res) => {
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
     }
-    await product.deleteOne(); // Use deleteOne method instead of remove
+    await product.deleteOne(); 
     res.json({ message: "Product deleted successfully" });
   } catch (error) {
     console.error("Error deleting product:", error);
@@ -92,6 +92,8 @@ app.post("/products", async (req, res) => {
       publisher,
       price,
       quantity,
+      buyLink,
+      about,
     } = req.body;
 
     const newProduct = new Product({
@@ -104,6 +106,8 @@ app.post("/products", async (req, res) => {
       publisher,
       price,
       quantity,
+      buyLink,
+      about,
     });
 
     await newProduct.save();

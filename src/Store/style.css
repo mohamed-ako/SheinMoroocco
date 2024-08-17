@@ -1,83 +1,3 @@
-/* .navbar {
-  display: block;
-  display: flex;
-  flex-flow: row;
-  justify-content: center;
-  align-items: center;
-  padding-inline: 20px;
-  background-color: #000000;
-  padding: 10px;
-  text-decoration: none;
-  color: white;
-  padding: 10px;
-  display: flex;
-  flex-flow: row;
-  justify-content: space-around;
-  height: 50px;
-  box-shadow: 0 0 15px gray;
-}
-.navbarL {
-  display: none !important;
-}
-
-.navbar > *:hover {
-  background-color: rgba(32, 1, 25, 0.37);
-  border: 0px;
-}
-.navbar > * {
-  text-decoration: none;
-  color: white;
-}
-.navbar span {
-  position: absolute;
-  display: flex;
-  flex-flow: column;
-  justify-content: start;
-  top: 68px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  height: 90vh;
-  text-align: center;
-  font-size: 20px;
-  z-index: 999;
-  background-color: #5100009c;
-}
-.navbar span:hover {
-  background-color: #5100009c;
-}
-.navbar svg {
-  width: 30px;
-  height: 30px;
-}
-.navbar .cart {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-  font-weight: 500;
-  font-size: large;
-}
-.navbar span button {
-  font-size: 20px;
-  font-weight: 500;
-  color: white;
-  background-color: rgba(255, 255, 255, 0) !important;
-
-  width: 30px;
-  height: 30px;
-  text-shadow: 0 0 10px white;
-  align-items: center;
-  align-self: center;
-  flex-flow: column;
-  justify-content: center;
-}
-.navbar span button:hover {
-  color: #ba0101;
-  text-shadow: 0 0 10px red;
-} */
 body {
   position: absolute;
   top: 0;
@@ -93,20 +13,17 @@ body {
   color: rgb(255, 255, 255);
   display: flex;
   flex-flow: row;
-
   width: 120px;
   height: 50px;
   display: flex;
   border-radius: 20px;
   display: flex;
-  /* border-radius: 30px; */
   background-color: #ae0000 !important;
   justify-content: space-around;
   align-items: center;
   transition: all ease-in-out 0.3s;
   cursor: pointer;
   box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.842);
-
   font-size: larger;
 
   /* font-weight: bold; */
@@ -119,6 +36,7 @@ body {
   top: 0;
   height: 8dvh;
   width: 100%;
+  z-index: 999;
 }
 .navbarL .cart {
   justify-content: center !important;
@@ -193,6 +111,7 @@ body {
 .action svg {
   width: 30px;
   height: 30px;
+  stroke: #db0000 !important;
 }
 .action button {
   background-color: #ba010100 !important;
@@ -208,6 +127,7 @@ body {
   width: 30px;
   box-shadow: 0 0 10px #bf0000;
   transition: 0.6s;
+  stroke: #ffffff !important;
 }
 .action .incr:hover {
   box-shadow: 0 0 10px #bf0000;
@@ -220,6 +140,7 @@ body {
   height: 30px;
   width: 30px;
   font-size: x-large;
+  stroke: #ffffff !important;
 }
 Link {
   text-decoration: none;
@@ -247,7 +168,6 @@ Link {
   width: 100%;
   height: 92vh;
   overflow: scroll;
-
   margin-top: 80px;
   justify-items: start;
   justify-self: start;
@@ -265,7 +185,6 @@ Link {
 }
 .prod {
   border-radius: 4px;
-
   display: flex;
   flex-flow: column;
   text-align: center;
@@ -284,7 +203,6 @@ Link {
   font-weight: 700;
   color: red;
 }
-
 .prds {
   display: flex;
   flex-flow: row wrap;
@@ -347,6 +265,7 @@ Link {
   top: 30%;
   left: 50%;
   width: 90%;
+
   transform: translate(-50%, -50%);
   background-color: rgba(
     0,
@@ -362,32 +281,43 @@ Link {
   margin-top: 5px;
   font-size: 18px;
   font-weight: 500;
+  white-space: nowrap; /* Prevents the text from wrapping to a new line */
+  overflow: hidden; /* Hides the overflow text */
+  text-overflow: ellipsis; /* Adds an ellipsis (...) at the end of the truncated text */
+  width: 95%; /* Adjust the width as needed */
 }
 .admin-buttons {
+  pointer-events: visible !important;
   width: 100%;
   position: absolute;
   background-color: #000000 !important;
-  top: 0;
+  top: 0px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
   align-items: start;
   height: 40px;
-  z-index: 99;
+  z-index: 9999;
 }
 .admin-buttons > .btn,
 .admin-buttons > .btn > * {
   text-decoration: none;
   height: 30px !important;
   padding: 0px;
+  /* width: 20px; */
   background-color: #cb000000 !important;
   font-size: medium !important;
   color: rgb(255, 255, 255);
 }
+.admin-buttons > .btn:hover {
+  background-color: red !important;
+  box-shadow: 0 0 10px red !important;
+}
 .ProdDet {
   width: 100%;
+  height: 100vh !important;
   margin-top: 8dvh;
-  overflow-x: hidden;
+  overflow: scroll !important;
 }
 
 .ProdDet div {
@@ -413,9 +343,102 @@ Link {
   height: 100%;
   width: 50%;
   object-fit: cover;
-  margin-left: 10px; /* Adds space between media items */
+  margin-left: 10px;
   scroll-snap-align: start;
 }
+
+.ProdDet .media img.active {
+  top: 10%;
+  position: absolute;
+  animation: activeState 0.7s forwards;
+  box-shadow: 0 0 10px black;
+}
+.ProdDet .media img:first-child,
+.ProdDet .media video:first-child {
+  margin-left: 0;
+}
+
+.ProdDet main {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  height: auto;
+}
+
+/* .ProdDet .media {
+  position: absolute;
+  top: 18px;
+  left: 0;
+  display: flex;
+  flex-direction: column nowrap !important;
+  width: 100vw !important;
+  height: 40vh;
+  background-color: #740e0ea0;
+}
+.ProdDet .media > img:first-child {
+  position: relative;
+  top: 18px;
+  left: 10%;
+  width: 90%;
+}
+.ProdDet .media > img {
+  width: 10%;
+} */
+
+.ProdDet table {
+  width: 48%;
+  min-width: 300px;
+  border-collapse: collapse;
+}
+
+.ProdDet span {
+  width: 48%;
+  min-width: 300px;
+}
+.ProdDet table {
+  width: 48%;
+  min-width: 300px;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.ProdDet table th,
+.ProdDet table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.ProdDet table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+.s {
+  color: #c40000;
+}
+
+.ProdDet table td {
+  background-color: #fff;
+}
+.ProdDet .descr {
+  width: 100%;
+  padding: 20px;
+
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  display: block;
+  margin: 20px auto !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  width: 93%;
+  margin-bottom: 20px !important;
+  padding-bottom: 40px;
+}
+
 @keyframes activeState {
   0% {
     max-width: 80%;
@@ -462,79 +485,6 @@ Link {
     top: 15%;
   }
 }
-.ProdDet .media img.active {
-  top: 10%;
-  position: absolute;
-  animation: activeState 0.7s forwards;
-  box-shadow: 0 0 10px black;
-}
-.ProdDet .media img:first-child,
-.ProdDet .media video:first-child {
-  margin-left: 0; /* Remove left margin for the first item */
-}
-
-.ProdDet main {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  justify-content: space-around;
-  align-items: center;
-  height: auto;
-}
-
-.ProdDet table {
-  width: 48%;
-  min-width: 300px;
-  border-collapse: collapse;
-}
-
-.ProdDet span {
-  width: 48%;
-  min-width: 300px;
-}
-.ProdDet table {
-  width: 48%;
-  min-width: 300px;
-  border-collapse: collapse;
-  margin: 20px 0;
-}
-
-.ProdDet table th,
-.ProdDet table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.ProdDet table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-
-.ProdDet table td {
-  background-color: #fff;
-}
-.ProdDet .descr {
-  width: 100%;
-  padding: 20px;
-  background-color: #fafafa;
-  border: 1px solid #ddd;
-  margin: 20px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 16px;
-  line-height: 1.5;
-  color: #333;
-}
-
-.ProdDet .descr {
-  width: 90%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-
 button,
 Link {
   background-color: #ba0101 !important;
@@ -804,6 +754,7 @@ Link {
   right: 0;
   overflow: scroll;
   height: 75dvh;
+  width: 100%;
   list-style-type: none;
   padding: 0;
   display: flex;
@@ -812,13 +763,14 @@ Link {
 }
 .mylist .prod {
   background-color: white;
-
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
   width: 180px;
-
+  height: 300px;
   position: relative;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  /* overflow: scroll; */
 }
 .mylist .prod:hover {
   background-color: rgb(254, 133, 133);
@@ -826,11 +778,12 @@ Link {
 
 .mylist .prod img {
   max-width: 100%;
-  height: 130px;
+  height: 60% !important;
   width: 180px;
   margin-bottom: 10px;
 }
 .mylist .prod .content {
+  height: 40% !important;
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -853,6 +806,9 @@ Link {
   margin-top: 10px;
   font-size: large;
   background-color: black !important;
+}
+.mylist .btn:hover {
+  background-color: rgb(254, 133, 133);
 }
 .mylist h2 {
   font-size: x-large;
@@ -907,7 +863,7 @@ Link {
   z-index: -1;
   margin: 25px auto;
 }
-.second .main_back2 {
+.contact .second .main_back2 {
   position: absolute;
   border-radius: 10px;
   transform: rotate(90deg);
@@ -1128,10 +1084,41 @@ Link {
 }
 @media screen and (max-width: 720px) {
   .prod {
-    width: 195px;
+    width: 165px;
+    height: 220px;
+    margin: 6px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: start;
+    /* background-color: #01d733 !important; */
   }
-  .prod img {
-    width: 195px !important;
+  .ProdList .prod .front-content {
+    width: 165px !important;
+    height: 130px !important;
+  }
+  .ProdList .prod img {
+    width: 165px !important;
+    height: 130px !important;
+  }
+  .ProdList .content {
+    width: 165px !important;
+    height: 90px !important;
+    /* background-color: #007bff; */
+  }
+  .action span {
+    display: none !important;
+  }
+  .action {
+    width: 165px;
+    display: flex;
+    flex-flow: row !important;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .action p {
+    color: red !important;
+    font-weight: 600;
+    font-size: large !important;
   }
   .ProdDet .media img,
   .ProdDet .media video {
@@ -1165,8 +1152,11 @@ Link {
     /* background-color: #00ddeb; */
   }
   .ProdList {
-    margin-top: 10px !important;
-    height: 90vh;
+    margin-top: 0px !important;
+    margin-bottom: 250px !important;
+    padding-top: 4px !important;
+    padding-bottom: 120px !important;
+    height: 80vh !important;
     overflow: scroll;
   }
   .ProdDet {

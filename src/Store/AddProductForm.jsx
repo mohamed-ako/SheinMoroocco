@@ -6,6 +6,8 @@ import { addProduct, login } from "./store";
 const AddProductForm = () => {
   const admins = useSelector((state) => state.admin.admins);
   const dispatch = useDispatch();
+  const [htmlInput, setHtmlInput] = useState(""); // For HTML input
+  const [htmlInputShein, setHtmlInputShein] = useState(""); // For HTML input
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState("admin");
@@ -20,6 +22,8 @@ const AddProductForm = () => {
     publisher: "",
     price: "",
     quantity: "",
+    buyLink: "",
+    about: "",
   });
 
   const handleSubmit = (e) => {
@@ -30,6 +34,7 @@ const AddProductForm = () => {
     };
     dispatch(addProduct(updatedFormData));
     alert("Product added successfully!");
+    // Reset form data
     setFormData({
       name: "",
       description: "",
@@ -40,6 +45,8 @@ const AddProductForm = () => {
       publisher: "",
       price: "",
       quantity: "",
+      buyLink: "",
+      about: "",
     });
   };
 
@@ -53,8 +60,6 @@ const AddProductForm = () => {
       setLoggedIn(true);
       console.log("admin " + username + " is logged in");
     } else {
-      setUsername("");
-      setPassword("");
       alert("Password or username incorrect");
     }
   };
@@ -97,10 +102,138 @@ const AddProductForm = () => {
     });
   };
 
+  const extractDataFromHtml = () => {
+    try {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlInput, "text/html");
+
+      // Extracting name
+      const nameElement = doc.querySelector("h1");
+      const name = nameElement ? nameElement.textContent.trim() : "";
+      const videoElement = doc.querySelector("source");
+      const video = videoElement ? videoElement.textContent.trim() : "";
+
+      // Extracting price
+      const priceElement = doc.querySelector(".product-price-value");
+      let price = priceElement ? priceElement.textContent.trim() : "";
+
+      // Remove all non-numeric characters except periods
+      price = price.replace(/[^0-9.]/g, "");
+
+      // Convert price to a number (parseFloat handles decimal numbers)
+      const priceNumber = parseFloat(price);
+
+      // Extracting images
+      const imageElements = doc.querySelectorAll(
+        ".image-view--wrap--UhXabwz img"
+      );
+      const images = Array.from(imageElements).map((img) => {
+        // Remove '_80x80.png_', '_120x120.png_', or similar patterns from the image URL
+        // return img.src.replace(/(80x80\.png_|120x120\.png_)/g, "");
+        return img.src.replace(/_\d+x\d+\.(png|jpg)/g, "");
+      });
+
+      // Update form data
+      const descElement = doc.querySelector("#product-description");
+      let desc = descElement ? descElement.textContent.trim() : "";
+      // Update form data
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        name,
+        price: priceNumber,
+        images: images.slice(1), // Use images from index 1 to the end
+        theImage: images[0] || "",
+        video,
+        description: desc,
+      }));
+
+      alert("Form data updated");
+    } catch (error) {
+      console.error("Error parsing HTML:", error);
+      alert(
+        "There was an error extracting data from the HTML. Please check the input."
+      );
+    }
+  };
+  const extractDataFromHtmlShein = () => {
+    try {
+      const parser = new DOMParser();
+      const docSh = parser.parseFromString(htmlInputShein, "text/html");
+
+      // Extracting name
+      const nameElementSh = docSh.querySelector("h1");
+      const nameSh = nameElementSh ? nameElementSh.textContent.trim() : "";
+
+      // Extracting video URL
+      const videoElementSh = docSh.querySelector("source");
+      const videoSh = videoElementSh ? videoElementSh.getAttribute("src") : "";
+
+      // Extracting price
+      const priceElementSh = docSh.querySelector(".original");
+      let priceSh = priceElementSh ? priceElementSh.textContent.trim() : "";
+
+      // Remove all non-numeric characters except periods
+      priceSh = priceSh.replace(/[^0-9.]/g, "");
+
+      // Convert price to a number
+      const priceNumberSh = parseFloat(priceSh);
+
+      // Extracting images
+      const imageElementsSh = docSh.querySelectorAll(
+        ".crop-image-container img"
+      );
+      const imagesSh = Array.from(imageElementsSh).map((img) =>
+        img.getAttribute("src").replace(/_\d+x\d+/, "")
+      );
+
+      // Extracting description
+      const descElementSh = docSh.querySelector(".product-intro__attr-wrap");
+      const descSh = descElementSh ? descElementSh.textContent.trim() : "";
+
+      // Update form data
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        name: nameSh,
+        price: priceNumberSh,
+        images: imagesSh.slice(1), // Use images from index 1 to the end
+        theImage: imagesSh[0] || "",
+        video: videoSh,
+        description: descSh,
+      }));
+
+      alert("Form data updated");
+    } catch (error) {
+      console.error("Error parsing HTML:", error);
+      alert(
+        "There was an error extracting data from the HTML. Please check the input."
+      );
+    }
+  };
+
   return (
     <div className="add">
       {loggedIn ? (
         <div>
+          <main>
+            <textarea
+              rows="10"
+              cols="50"
+              placeholder="Paste AliExpress HTML here"
+              value={htmlInput}
+              onChange={(e) => setHtmlInput(e.target.value)}
+            />
+            <button onClick={extractDataFromHtml}>Extract Data</button>
+          </main>
+          <main>
+            <textarea
+              rows="10"
+              cols="50"
+              placeholder="Paste AliExpress HTML here"
+              value={htmlInputShein}
+              onChange={(e) => setHtmlInputShein(e.target.value)}
+            />
+            <button onClick={extractDataFromHtmlShein}>Extract Data</button>
+          </main>
           <form onSubmit={handleSubmit}>
             <h2>Add Product</h2>
             <label>Name:</label>
@@ -109,14 +242,28 @@ const AddProductForm = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              required
+              // required
+            />
+            <label>Buy Link:</label>
+            <input
+              type="text"
+              name="buyLink"
+              value={formData.buyLink}
+              onChange={handleChange}
+              // required
+            />
+            <label>About:</label>
+            <input
+              type="text"
+              name="about"
+              value={formData.about}
+              onChange={handleChange}
             />
             <label>Description:</label>
             <textarea
               name="description"
               value={formData.description}
               onChange={handleChange}
-              required
             />
             <label>Category:</label>
             <input
@@ -124,7 +271,7 @@ const AddProductForm = () => {
               name="category"
               value={formData.category}
               onChange={handleChange}
-              required
+              // required
             />
             <label>Price:</label>
             <input
@@ -132,7 +279,7 @@ const AddProductForm = () => {
               name="price"
               value={formData.price}
               onChange={handleChange}
-              required
+              // required
             />
             <label>Quantity:</label>
             <input
@@ -140,7 +287,7 @@ const AddProductForm = () => {
               name="quantity"
               value={formData.quantity}
               onChange={handleChange}
-              required
+              // required
             />
             <label>First Image URL:</label>
             <input
@@ -148,7 +295,6 @@ const AddProductForm = () => {
               name="theImage"
               value={formData.theImage}
               onChange={handleChange}
-              required
             />
             <main>
               <label>Additional Images URL:</label>
@@ -159,7 +305,6 @@ const AddProductForm = () => {
                     name={`image_${index}`}
                     value={image}
                     onChange={(e) => handleImageUrlChange(e, index)}
-                    required
                   />
                   <button
                     type="button"
@@ -179,8 +324,8 @@ const AddProductForm = () => {
               name="video"
               value={formData.video}
               onChange={handleChange}
-              required
             />
+
             <button type="submit">Add Product</button>
           </form>
         </div>
@@ -203,6 +348,7 @@ const AddProductForm = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+
           <button type="submit">Login</button>
         </form>
       )}
