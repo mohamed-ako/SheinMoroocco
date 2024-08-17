@@ -32,27 +32,23 @@ To run this preliminary version locally, follow these steps:
 
 ## Clone the repository:
 
-bash
 
 ### git clone https://github.com/your-username/your-repo-name.git
 
 ## Navigate to the project directory:
 
-bash
 
 ### cd your-repo-name
 ## Install dependencies:
 
 ## For the backend:
 
-bash
 
 ### cd SheinMoroccoo
 ### cd express
 ### npm install
 ## For the frontend:
 
-bash
 
 ## cd SheinMoroccoo
 ## npm install
@@ -60,7 +56,6 @@ Set up environment variables:
 
 ## Create a .env file in the root of the backend directory and add the following:
 
-bash
 
 ## MONGO_URI=your_mongodb_connection_string
 
@@ -68,14 +63,12 @@ bash
 
 ## Start the backend server:
 
-bash
 
 ### cd SheinMoroccoo
 ### cd express
 ### npm run server
 ## Start the frontend development server:
 
-bash
 
 ### cd SheinMoroccoo
 ### npm start
