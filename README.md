@@ -8,7 +8,6 @@ Shopping Cart: Users can browse products, add items to their cart, and proceed t
 Order Management: Basic order management system in place; more features to be added.
 State Management: Implemented with Redux Toolkit for efficient state management and improved performance.
 Responsive Design: Basic responsive layout, with ongoing improvements for a more consistent user experience across all devices.
-Payment Integration: Initial setup for payment processing, with further development needed for full functionality.
 ##Technologies Used
 ##Frontend:
 
